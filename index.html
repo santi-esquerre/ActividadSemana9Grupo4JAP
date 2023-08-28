@@ -3,7 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js" defer></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>Fake Store :)</h1>
+    </header>
+    <div class="row">
+      <label for="productSearch" class="col text-center">
+        <input
+          type="text"
+          id="productSearch"
+          placeholder="Search for a product..."
+        />
+      </label>
+    </div>
+    <div class="container">
+      <div id="container" class="row g-3 justify-content-center"></div>
+    </div>
+    <template product-template>
+      <div class="product card col-12 col-md-6 col-lg-4">
+        <img
+          src=""
+          class="card-img-top"
+          style="max-height: 40%; object-fit: contain"
+          prod-img
+        />
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted" prod-cat></h6>
+          <h5 class="card-title" prod-title></h5>
+          <p class="card-text" prod-desc></p>
+          <p class="card-text" prod-price>$</p>
+          <div class="card-footer position-relative">
+            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+          </div>
+        </div>
+      </div>
+    </template>
+  </body>
 </html>
