@@ -17,8 +17,8 @@ async function getProducts() {
   }
 }
 function showArray(array) {
+  productContainer.innerHTML = "";
   let card, cardBody;
-  console.log(div);
   array.forEach((element) => {
     if (
       element.image &&
@@ -37,7 +37,7 @@ function showArray(array) {
       img.src = element.image;
       title.textContent = element.title;
       price.textContent += element.price;
-      desc.textContent = element.description;
+      desc.textContent = element.description.substring(0, 100) + "...";
       category.textContent = element.category;
       productContainer.append(card);
     } else {
@@ -47,14 +47,13 @@ function showArray(array) {
 }
 async function showProducts() {
   products = await getProducts();
-  console.log(products);
   showArray(products);
 }
 
 // Search functionality
 search.addEventListener("input", (e) => {
   let value = e.target.value.toLowerCase();
-  const filteredProducts = products.filter((product) => {
+  let filteredProducts = products.filter((product) => {
     return (
       product.title.toLowerCase().includes(value) ||
       product.category.toLowerCase().includes(value) ||
@@ -62,11 +61,30 @@ search.addEventListener("input", (e) => {
     );
   });
   if (value.trim().length > 0) {
-    productContainer.innerHTML = "";
     showArray(filteredProducts);
   } else {
-    productContainer.innerHTML = "";
     showProducts();
   }
+});
+
+// Price filter
+
+const filterBtn = document.getElementById("rangeFilterPrice");
+filterBtn.addEventListener("click", () => {
+  const minPrice = document.getElementById("priceMin").value || 0;
+  const maxPrice = document.getElementById("priceMax").value || Infinity;
+  let filteredProducts = products.filter((product) => {
+    return product.price >= minPrice && product.price <= maxPrice;
+  });
+  showArray(filteredProducts);
+});
+
+const clearBtn = document.getElementById("clearRangeFilter");
+
+clearBtn.addEventListener("click", function () {
+  document.getElementById("productSearch").value = "";
+  document.getElementById("priceMin").value = "";
+  document.getElementById("priceMax").value = "";
+  showProducts();
 });
 document.addEventListener("DOMContentLoaded", showProducts);
